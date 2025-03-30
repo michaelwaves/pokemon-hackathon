@@ -358,6 +358,8 @@ Your goal is to play through Pokemon Red and eventually defeat the Elite Four. M
 
 Before each action, explain your reasoning briefly, then use the emulator tool to execute your chosen commands.
 
+Make sure to use the tool check_pokemon_team to understand which pokemon are on your team
+
 The conversation history may occasionally be summarized to save context space. If you see a message labeled "CONVERSATION HISTORY SUMMARY", this contains the key information about your progress so far. Use this information to maintain continuity in your gameplay."""
 
     SUMMARY_PROMPT = """I need you to create a detailed summary of our conversation history up to this point. This summary will replace the full conversation history to manage the context window.

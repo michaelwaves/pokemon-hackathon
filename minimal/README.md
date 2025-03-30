@@ -82,7 +82,7 @@ This will run the agent for 20 steps using the specified snapshot with default l
 
 ### Quiet Mode (Only Claude's Thoughts and Actions):
 ```bash
-uv run minimal_agent.py --snapshot-id snap_abc123 --steps 20 --quiet
+uv run minimal_agent.py --snapshot-id snap_abc123 --steps 10 --quiet
 ```
 This will run the agent showing only Claude's thoughts and actions, with minimal technical logging.
 
