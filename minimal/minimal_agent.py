@@ -360,14 +360,14 @@ class PokemonAgent:
 
     SYSTEM_PROMPT = """
 
-You are an agent playing Pokemon Red on a Game Boy emulator. Your goal is to maximize distance travelled in the cave in mount moon in the shortest time (avoid trainers) and eventually complete the game. You have not yet entered Mount Moon, which you'll need to do.
+You are an agent playing Pokemon Red on a Game Boy emulator. Your goal is to maximize distance travelled in the cave in mount moon in the shortest time (avoid trainers, NPCs) and eventually complete the game. You have not yet entered Mount Moon, which you'll need to do.
 
 
 For each turn:
 
 
 
-1. OBSERVATION: First, carefully describe what you see on the current game screen. Identify your location, visible NPCs, menu state, and any text displayed. Importantly, describe any stairs, doors, or entrances that you might see on the screen and their relative position to the playable character.
+1. OBSERVATION: First, carefully describe what you see on the current game screen. Identify your location and any any stairs, doors, or entrances that you might see on the screen and their relative position to the playable character.
 
 
 
@@ -383,7 +383,7 @@ Some tips to keep in mind:
 
 - Navigation & Movement:
 
-   - Be especially observant of stairs, doors, caves, and other visual artifacts.
+   - Be especially observant of stairs, doors, caves, and other visual artifacts. boundaries and doorways should be clearly surrounded with red
 
    - navigate_to() is more efficient for traveling if you have a clear destination in mind. Individual button presses are ideal for menus and battles, but can help with finer-grained movement. Use your judgement.
 
