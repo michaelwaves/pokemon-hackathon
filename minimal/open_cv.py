@@ -1,5 +1,4 @@
 import cv2
-import cv2
 import numpy as np
 import base64
 from io import BytesIO
@@ -10,6 +9,11 @@ def decode_base64_image(base64_string):
     image_data = base64.b64decode(base64_string)
     image = Image.open(BytesIO(image_data))
     return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+
+def encode_image_to_base64(image):
+    """Encodes an OpenCV image to a base64 string."""
+    _, buffer = cv2.imencode('.png', image)
+    return base64.b64encode(buffer).decode('utf-8')
 
 def detect_features(image_b64):
     """Detects doors, caves, and dark areas in an image and overlays highlights."""
@@ -43,9 +47,8 @@ def detect_features(image_b64):
     cv2.drawContours(highlighted_image, contours_cave, -1, (255, 0, 0), 2)  # Blue for caves
     cv2.drawContours(highlighted_image, contours_dark, -1, (0, 0, 255), 2)  # Red for dark areas
     
-    # Save the highlighted image
-    output_path = "highlighted_image.png"
-    cv2.imwrite(output_path, highlighted_image)
+    # Encode the image back to base64
+    highlighted_image_b64 = encode_image_to_base64(highlighted_image)
     
-    return highlighted_image
+    return highlighted_image_b64
 

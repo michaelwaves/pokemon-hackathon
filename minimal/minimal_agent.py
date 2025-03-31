@@ -35,6 +35,8 @@ from rich.console import Console
 
 from morphcloud.api import MorphCloudClient
 
+from open_cv import detect_features
+
 # Set up logging - this will be configured properly in main() based on command line args
 logger = logging.getLogger(__name__)
 
@@ -80,7 +82,10 @@ class EmulatorClient:
         if response.status_code != 200:
             logger.error(f"Error getting screenshot: {response.status_code}")
             return ""
-        return base64.b64encode(response.content).decode("utf-8")
+        base64_image = base64.b64encode(response.content).decode("utf-8")
+        #Opencv highlighted image with contours
+        highlighted_base64_image = detect_features(base64_image)
+        return highlighted_base64_image
 
     def get_game_state(self):
         """Get complete game state from server"""
