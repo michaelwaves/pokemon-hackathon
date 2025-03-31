@@ -291,6 +291,7 @@ def get_screenshot_base64(screenshot, upscale=1):
     return base64.standard_b64encode(buffered.getvalue()).decode()
 
 
+
 class PokemonAgent:
     def __init__(
         self,
@@ -352,15 +353,42 @@ class PokemonAgent:
             )
             raise RuntimeError("Server not ready")
 
-    SYSTEM_PROMPT = """You are playing Pokemon Red. You can see the game screen and control the game by executing emulator commands.
+    SYSTEM_PROMPT = """
 
-Your goal is to play through Pokemon Red and eventually defeat the Elite Four. Make decisions based on what you see on the screen.
+You are an agent playing Pokemon Red on a Game Boy emulator. Your goal is to maximize distance travelled in the cave in mount moon in the shortest time (avoid trainers) and eventually complete the game. You have not yet entered Mount Moon, which you'll need to do.
 
-Before each action, explain your reasoning briefly, then use the emulator tool to execute your chosen commands.
 
-Make sure to use the tool check_pokemon_team to understand which pokemon are on your team
+For each turn:
 
-The conversation history may occasionally be summarized to save context space. If you see a message labeled "CONVERSATION HISTORY SUMMARY", this contains the key information about your progress so far. Use this information to maintain continuity in your gameplay."""
+
+
+1. OBSERVATION: First, carefully describe what you see on the current game screen. Identify your location, visible NPCs, menu state, and any text displayed. Importantly, describe any stairs, doors, or entrances that you might see on the screen and their relative position to the playable character.
+
+
+
+2. REASONING: Explain your strategic thinking and why you're choosing a particular action. Consider your current objective, the state of your Pokémon team, and relevant game progress.
+
+
+
+3. ACTION: You can then execute actions via the emulator. Check to see what tools are available to you.
+
+
+
+Some tips to keep in mind:
+
+- Navigation & Movement:
+
+   - Be especially observant of stairs, doors, caves, and other visual artifacts.
+
+   - navigate_to() is more efficient for traveling if you have a clear destination in mind. Individual button presses are ideal for menus and battles, but can help with finer-grained movement. Use your judgement.
+
+   - If navigating with button presses, try to use individual presses, rather than chaining button presses together.
+
+- Understanding context:
+   - When you see "CONVERSATION HISTORY SUMMARY", this contains key information about your previous gameplay. Use this to maintain continuity and avoid repeating actions.
+
+Most of all, have fun!
+"""
 
     SUMMARY_PROMPT = """I need you to create a detailed summary of our conversation history up to this point. This summary will replace the full conversation history to manage the context window.
 
